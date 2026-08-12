@@ -23,7 +23,7 @@ DATA_DIR      = _BASE_DATA   / today_str('f')
 OUTPUT_DIR    = _BASE_OUTPUT / today_str('f')
 TEMPLATE_PATH = _BASE_DATA   / 'template.xlsx'
 
-# .env file path — holds POP3/SMTP credentials
+# .env file path, holds POP3/SMTP credentials
 ENV_PATH = Path(r'C:\path\to\your\.env')
 
 # POP3
@@ -43,7 +43,7 @@ SMTP_PASS_ENV = 'SMTP_PASSWORD'   # key name in .env
 
 NOTIFICATION_FROM = 'your-sender@example.com'
 
-# Email targets — subjects/senders to match for attachment download
+# Email targets: subjects/senders to match for attachment download
 EMAIL_TARGETS = [
     {
         "name": "Carrier A - Report Name",
@@ -70,13 +70,13 @@ NOTIFICATION_CC  = []
 NOTIFICATION_BCC = []
 
 # Report
-REPORT_SUBJECT = 'Consolidated Report – {}'   # .format(date)
+REPORT_SUBJECT = 'Consolidated Report - {}'   # .format(date)
 REPORT_TO  = ['recipient@example.com']
 REPORT_CC  = []
 REPORT_BCC = []
 
 # Skip (No Update)
-SKIP_SUBJECT = '[No Update] Consolidated Report – {}'  # .format(date)
+SKIP_SUBJECT = '[No Update] Consolidated Report - {}'  # .format(date)
 SKIP_TO  = ['recipient@example.com']
 SKIP_CC  = []
 SKIP_BCC = []

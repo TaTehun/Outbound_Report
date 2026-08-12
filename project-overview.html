@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daily Outbound Report — Portfolio</title>
+  <title>Daily Outbound Report · Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -1183,7 +1183,7 @@ df.drop(columns=[d_col], inplace=<span class="kw">True</span>)
 <span class="kw">for</span> i, col <span class="kw">in</span> enumerate(split_df.columns):
     df.insert(d_idx + i, col, split_df[col])
 
-<span class="cm"># Null-fill keeps pivot clean — no (Blank) label rows</span>
+<span class="cm"># Null-fill keeps pivot clean: no (Blank) label rows</span>
 df[col_dict[<span class="st">"K"</span>]] = df[col_dict[<span class="st">"K"</span>]].fillna(
     <span class="st">"SHIPMENT EN-ROUTE-TO-DEST"</span>
 )</pre>
@@ -1194,7 +1194,7 @@ df[col_dict[<span class="st">"K"</span>]] = df[col_dict[<span class="st">"K"</sp
             <span class="code-card-title">Fault-Tolerant Source Dispatch Table</span>
             <span class="code-tag">combine_excel()</span>
           </div>
-          <pre><span class="cm"># Each source is isolated — one failure never blocks others</span>
+          <pre><span class="cm"># Each source is isolated: one failure never blocks others</span>
 dfs = []
 <span class="kw">for</span> label, loader <span class="kw">in</span> [
     (<span class="st">"Provider A"</span>, <span class="kw">lambda</span>: pd.read_excel(
@@ -1223,7 +1223,7 @@ df_result = pd.concat(dfs, ignore_index=<span class="kw">True</span>)</pre>
             <span class="code-card-title">Position-Safe Column Block Reorder</span>
             <span class="code-tag">provider_c_report()</span>
           </div>
-          <pre><span class="cm"># col_dict rebuilt after every mutation —</span>
+          <pre><span class="cm"># col_dict rebuilt after every mutation;</span>
 <span class="cm"># letter keys stay stable regardless of insert/drop order</span>
 col_dict = {
     get_column_letter(i + <span class="nm">1</span>): col
@@ -1250,7 +1250,7 @@ c_idx = list(df.columns).index(col_dict[<span class="st">"C"</span>])
           </div>
           <pre><span class="cm"># Files saved as name_HHMM.ext at download time.</span>
 <span class="cm"># Each run checks only files newer than its threshold</span>
-<span class="cm"># — no lock files, no external state required.</span>
+<span class="cm"># No lock files, no external state required.</span>
 mode = sys.argv[<span class="nm">1</span>] <span class="kw">if</span> len(sys.argv) > <span class="nm">1</span> <span class="kw">else</span> <span class="st">"initial"</span>
 
 has_after_1700 = <span class="kw">any</span>(
@@ -1281,7 +1281,7 @@ has_after_1700 = <span class="kw">any</span>(
             <div class="msg">
               <div class="avatar avatar-u">TJ</div>
               <div class="bubble">
-                Extending to 3 daily runs. Files already have a <code>_HHMM</code> suffix at download time — use that as the update signal, no new state.
+                Extending to 3 daily runs. Files already have a <code>_HHMM</code> suffix at download time: use that as the update signal, no new state.
                 First run gate is <code>xlsb.exists()</code>. Runs 2 and 3 use per-run timestamp thresholds.
                 Verify all 6 cases before touching code.
               </div>
@@ -1289,7 +1289,7 @@ has_after_1700 = <span class="kw">any</span>(
             <div class="msg">
               <div class="avatar avatar-c">C</div>
               <div class="bubble bubble-c">
-                All 6 cases verified — no overlap. Implemented <code>sys.argv</code> mode dispatch
+                All 6 cases verified, no overlap. Implemented <code>sys.argv</code> mode dispatch
                 (<code>initial / second / third</code>) with thresholds <code>&#x2265;1700</code> / <code>&#x2265;1800</code>.
                 Created <code>run_initial.bat</code>, <code>run_second.bat</code>, <code>run_third.bat</code>.
               </div>
@@ -1303,7 +1303,7 @@ has_after_1700 = <span class="kw">any</span>(
             <div class="msg">
               <div class="avatar avatar-u">TJ</div>
               <div class="bubble">
-                The <code>name</code> field in <code>EMAIL_TARGETS</code> — I know it renders in the email body,
+                The <code>name</code> field in <code>EMAIL_TARGETS</code>: I know it renders in the email body,
                 but does it get used anywhere else? Matching logic uses <code>contains</code> and <code>sender</code>,
                 so I'm assuming it's safe to rename. Confirm before I change it.
               </div>
@@ -1311,7 +1311,7 @@ has_after_1700 = <span class="kw">any</span>(
             <div class="msg">
               <div class="avatar avatar-c">C</div>
               <div class="bubble bubble-c">
-                Also used in log output and as the <code>received_times</code> dict key —
+                Also used in log output and as the <code>received_times</code> dict key,
                 but since both writer and reader pull from the same config, renaming is safe.
                 Matching is unaffected.
               </div>

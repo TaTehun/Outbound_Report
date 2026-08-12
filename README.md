@@ -1,6 +1,6 @@
-# Daily Outbound Report — Automation Pipeline
+# Daily Outbound Report · Automation Pipeline
 
-An end-to-end Python automation pipeline that downloads daily outbound report attachments from email, consolidates them into a single Excel workbook, and distributes the final report via email — all without manual intervention.
+An end-to-end Python automation pipeline that downloads daily outbound report attachments from email, consolidates them into a single Excel workbook, and distributes the final report via email, all without manual intervention.
 
 > **Visual overview:** [project-overview.html](project-overview.html)
 
@@ -13,9 +13,9 @@ Each business day, multiple carriers and logistics partners send their outbound 
 1. **Downloads** today's report attachments from the POP3 mailbox
 2. **Transforms** each source file into a standardized format
 3. **Consolidates** all sources into a single workbook with a refreshed pivot table
-4. **Distributes** the final `.xlsb` report via SMTP — with pivot table embedded in the email body
+4. **Distributes** the final `.xlsb` report via SMTP, with the pivot table embedded in the email body
 5. **Alerts** stakeholders if any files were not received
-6. **Detects updates** — runs up to 3 times per day; if new files arrived since the last run, re-sends with an `(Updated)` subject prefix; if nothing changed, sends a "No Update" notification instead
+6. **Detects updates**: runs up to 3 times per day; if new files arrived since the last run, re-sends with an `(Updated)` subject prefix; if nothing changed, sends a "No Update" notification instead
 
 ---
 
@@ -73,7 +73,7 @@ Outbound/
 ## How It Works
 
 ### 1. Download
-The downloader connects to the POP3 server and scans incoming emails **newest-first**, stopping as soon as it reaches emails older than today. For each email, it checks the subject and sender against the configured targets before downloading the attachment — minimizing unnecessary data transfer. Each saved file is timestamped (`filename_HHMM.ext`) so subsequent runs can detect whether new files arrived.
+The downloader connects to the POP3 server and scans incoming emails **newest-first**, stopping as soon as it reaches emails older than today. For each email, it checks the subject and sender against the configured targets before downloading the attachment, which minimizes unnecessary data transfer. Each saved file is timestamped (`filename_HHMM.ext`) so subsequent runs can detect whether new files arrived.
 
 ### 2. Transform
 Each source file goes through source-specific transformations (column reordering, address splitting, date formatting, blank column insertion) to conform to a standard 19-column layout. Blank shipment status values are filled with `SHIPMENT EN-ROUTE-TO-DEST` so the pivot table shows a meaningful label instead of `(Blank)`.
@@ -146,18 +146,18 @@ python main.py third
 
 ## Changelog
 
-### v1.3 — 2026-05-07 · Multi-Run Schedule & Module Split
+### v1.3 · 2026-05-07 · Multi-Run Schedule & Module Split
 - 3-run daily schedule with stateless update detection (`_HHMM` suffix)
 - `email_pipeline` split into `downloader.py` / `sender.py` / `email_setup.py`
-- Fault-tolerant source dispatch — alert and report paths fully decoupled
+- Fault-tolerant source dispatch: alert and report paths fully decoupled
 - Added `project-overview.html`
 
-### v1.2 — 2026-04-XX · Email Pipeline Refactor
+### v1.2 · 2026-04-XX · Email Pipeline Refactor
 - Restructured `email_pipeline` into `email_setup.py`, `downloader.py`, `sender.py`
 
-### v1.1 — 2026-04-XX · 2nd-Run Detection & Pivot Email
+### v1.1 · 2026-04-XX · 2nd-Run Detection & Pivot Email
 - 2nd-run update detection via `_HHMM` filename timestamp
 - Pivot table rendered as inline HTML in email body
 
-### v1.0 — Initial Release
+### v1.0 · Initial Release
 - POP3 downloader, multi-source Excel consolidation, SMTP distribution
